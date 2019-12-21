@@ -36,7 +36,6 @@ int main(void){
 	for(int i=0; i<101; i++){       //ÏÈ½«Ã¿Ò»¸öÒÔºóÒªÖ¸Ïò±íÍ·µÄÖ¸ÕëÖ¸ÏòNULL 
 		Instructor[i].next = InitList(Instructor, i); 
 		Instructor[i].data = 0;     //Îª0±íÊ¾Î´³õÊ¼»¯£¬Îª1±íÊ¾ÒÑ¾­³õÊ¼»¯ 
-		
 }
 	
 	int op = 1;
@@ -153,12 +152,12 @@ int main(void){
 					break;
 	            case 0:                          //ÊäÈë0ÖÕÖ¹³ÌĞò 
 	             	break;
-	        }//end obreakf switch
+	        }//end of switch
     }//end of while
     printf("\t»¶Ó­ÏÂ´ÎÔÙÊ¹ÓÃ±¾ÏµÍ³£¡\n");
 }//end of main()
 
-status compare(int x1, int x2){
+status compare(int x1, int x2){                 //±È½Ïº¯Êı£¬ÈôÏàÍ¬·µ»Ø1£¬·ñÔò·µ»Ø0 
 	if(x1 == x2)
 		return TRUE;
 	else
@@ -166,7 +165,7 @@ status compare(int x1, int x2){
 }
 
 
-status visit(LNode *a){
+status visit(LNode *a){                         //·ÃÎÊº¯Êı£¬Æğµ½´òÓ¡Êı¾İÏîµÄ¹¦ÄÜ 
 	while(a != NULL){
 		a = a->next;
 		printf("%d ", a->data);
@@ -187,9 +186,9 @@ status DestroyList(LNode *Ins, int num){       //Ïú»Ù£¬º¯ÊıĞòºÅÎª2
 	if(!Ins[num].next){                        //¿Õ±íÒ²¿ÉÒÔÏú»Ù 
 		return OK; 
 	}
-	Ins[num].data = 0;                         //³õÊ¼»¯±ê¼ÇÖØÖÃÎª0 
+	Ins[num].data = 0;                         //³õÊ¼»¯±ê¼ÇÖØÖÃÎª0
 	LNode *p = Ins[num].next; 
-	LNode *q = p->next;
+	LNode *q = p->next;                        //q±Èp¿ìÒ»²½
 	while(p){
 		free(p);
 		p = q;
@@ -207,13 +206,13 @@ status ClearList(LNode *L){    //Çå¿Õ£¬º¯ÊıĞòºÅÎª3
 		return FALSE; 
 	}
 	
-	LNode *p = L->next;
-	LNode *q = p->next;
+	LNode *p = L->next;        //p´ÓÍ·½Úµã¿ªÊ¼ 
+	LNode *q = p->next;        //q±Èp¿ìÒ»²½£¬Ã¿´Î¶¼°Ñp´¦ÔªËØÇå¿Õ 
 	while(p){
 		free(p);
 		p = q;
 		if(p){
-			q = q->next;
+			q = q->next;       //Èç¹û²»ÊÇ×îºóÒ»Ïî£¬ÔòqºóÒÆÒ»Î» 
 		}
 	}
 	L->next = NULL;
@@ -250,18 +249,18 @@ int ListLength(LNode *L){      //Çó±í³¤£¬º¯ÊıĞòºÅÎª5
 status GetElem(LNode *L, int i, ElemType &e){  //²éÕÒÔªËØÖµ£¬º¯ÊıĞòºÅÎª6 
 	LNode *p = L->next;
 	int j = 1;
-	if(i <= 0){
+	if(i <= 0){               //³¬¹ıÉÏ½ç 
 		printf("\tÊäÈëÏÂ±ê²»ºÏ·¨\n");
 		return ERROR;
 	}
 	
-	while(p && j<i){
+	while(p && j<i){         //ÒÆ¶¯£¬Ö±ÖÁ¶¨Î»µ½Ö¸¶¨ÏÂ±ê»òÕßµ½±íÎ²ÔªËØ 
 		p = p->next;
 		j++;
 	}
 	
-	if(!p){
-		printf("\tÊäÈëÏÂ±í²»ºÏ·¨\n");
+	if(!p){                  //³¬¹ıÏÂ½ç 
+		printf("\tÊäÈëÏÂ±ê²»ºÏ·¨\n");
 		return ERROR;
 	}
 	
@@ -275,7 +274,7 @@ status LocateElem(LNode *L, ElemType e, int (*func) (int x1, int x2)){   //²éÕÒÏ
 	int j;
 	LNode *p = L->next;
 	for(j=0; p; j++){
-		if(func(p->data, e)){
+		if(func(p->data, e)){     //Ê¹ÓÃ±È½Ïº¯ÊıcompareÅĞ¶ÏÁ½ÊøÊÇ·ñÏàµÈ 
 			printf("\t¸ÃÔªËØµÄÎ»ÖÃÔÚµÚ%d¸ö",j+1);
 			return j+1;
 		}
@@ -293,7 +292,7 @@ status PriorElem(LNode *L, ElemType cur, ElemType &pre_e){   //²éÕÒÇ°Çı£¬º¯ÊıĞòº
 	p2 = p1->next;            //p2±Èp1¿ìÒ»²½£¬Õı³£Çé¿öÓÃp2ÕÒµ½ÁË¾Í·µ»Øp1ËùÔÚÎ»ÖÃµÄÊı¾İ 
 	if(p2->data == cur){
 		printf("\t¸ÃÔªËØÎªÊ×ÔªËØ£¬²»´æÔÚÇ°Çı\n");
-		return ERROR; 
+		return ERROR;
 	}
 	
 	while(p2->data!=cur && p2){
@@ -301,7 +300,7 @@ status PriorElem(LNode *L, ElemType cur, ElemType &pre_e){   //²éÕÒÇ°Çı£¬º¯ÊıĞòº
 		p2 = p2->next; 
 	}
 	
-	if(!p2){
+	if(!p2){                //²éµ½±íÎ²ÈÔÎ´ÕÒµ½ 
 		printf("\t¸ÃÔªËØ²»ÔÚ±íÖĞ");
 		return ERROR;
 	}
@@ -321,7 +320,7 @@ status NextElem(LNode *L, ElemType cur, ElemType &next_e){   //²éÕÒºó¼Ì£¬º¯ÊıĞòº
 		p2 = p2->next;
 	}
 	
-	if(!p2 && p1->data!=cur){
+	if(!p2 && p1->data!=cur){      //²éµ½±íÎ²ÈÔÎ´ÕÒµ½ 
 		printf("\t¸ÃÔªËØ²»ÔÚ±íÖĞ\n");
 		return ERROR;
 	}
@@ -345,15 +344,15 @@ status ListInsert(LNode *L, int i, ElemType e){            //²åÈë£¬º¯ÊıĞòºÅÎª10
 		j ++;
 	}              //Ñ°ÕÒµÚi-1¸ö½Úµã 
 	
-	if(!p0 || j>i-1){
+	if(!p0 || j>i-1){      //Ô½½çÅĞ¶Ï 
 		printf("\tÊäÈëÏÂ±ê²»ºÏ·¨\n");
 		return ERROR;
 	}
 	
 	LNode *s = (LNode*)malloc(sizeof(LNode));
 	s->data = e;
-	s->next = p0->next;
-	p0->next = s;
+	s->next = p0->next;    //ĞÂ½ÚµãÖ¸ÕëÖ¸ÏòµÚi¸ö½ÚµãµÄºó¼Ì 
+	p0->next = s;          //µÚi¸ö½ÚµãµÄÇ°ÇıÖ¸ÏòĞÂ½Úµã 
 	printf("\t²åÈë³É¹¦\n");
 	return OK;
 }
@@ -365,16 +364,16 @@ status ListDelete(LNode *L, int i, ElemType &e){   //É¾³ı£¬º¯ÊıĞòºÅÎª11
 	while(p->next && j<i-1){
 		p = p->next;
 		j++;
-	}
+	}            //Ñ°ÕÒµÚi-1¸ö½Úµã 
 	
-	if(!(p->next) || j>i-1){
+	if(!(p->next) || j>i-1){   //Ô½½çÅĞ¶Ï 
 		printf("\tÊäÈëÏÂ±ê²»ºÏ·¨\n");
 		return ERROR;
 	}
 	
-	LNode *q = p->next;
-	p->next = q->next;
-	e = q->data;
+	LNode *q = p->next;  //È¡µÚi¸ö½Úµã 
+	p->next = q->next;   //µÚi-1¸ö½ÚµãÖ¸ÏòÔ­À´µÚi+1¸ö½Úµã 
+	e = q->data;         //È¡É¾³ıµÄÊı¾İ 
 	printf("\tÔªËØ%dÉ¾³ı³É¹¦\n", e); 
 	free(q);
 	return OK;
@@ -388,7 +387,7 @@ status ListTraverse(LNode *L){  //º¯ÊıĞòºÅÎª12
 	
 	LNode *p = L->next;
 	printf("\n---------------all elements ------------------\n");
-    while(p){
+    while(p){        //±éÀú£¬Ö±µ½pÎª¿Õ 
 		printf("%d ", p->data);
 		p = p->next;
 	}
@@ -408,7 +407,6 @@ status WriteFile(LNode *L){               //Ğ´ÈëÎÄ¼ş£¬º¯ÊıĞòºÅÎª13
 		return ERROR;
 	}
 	
-	int length = ListLength(L);
 	fwrite(L, sizeof(LNode), 1, fp);
 	printf("ÒÑ³É¹¦Ğ´ÈëÎÄ¼ş\n");
 	fclose(fp);
@@ -427,7 +425,8 @@ status ReadFile(LNode *L){                //¶ÁÈ¡ÎÄ¼ş£¬º¯ÊıĞòºÅÎª14
 			system("pause");
 			return ERROR;
 		}
-	while(fread(L, sizeof(LNode), 1, fp));
+		
+	while(fread(L, sizeof(LNode), 1, fp)); //¶ÁÈ¡£¬Ö±µ½±íÎ² 
 	printf("¶ÁÈ¡³É¹¦\n");
 	fclose(fp);
 	return OK; 
